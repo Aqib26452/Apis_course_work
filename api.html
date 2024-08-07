@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+
+    <title>Apis</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+
+
+    <script>
+        const api='https://api.github.com/users';
+        let row = document.querySelector('.row')
+        const getData = async ()=>{
+            const data=await fetch(api);
+            const response=await data.json();
+            // console.log(response);
+            return response;
+        }
+        getData().then((res)=>{
+            res.forEach((person)=> {
+                console.log(person)
+                let col=document.createElement('div');
+                col.classList.add('col-lg-3')
+                row.appendChild(col);
+                //create another div
+                let card = document.createElement('div');
+                card.classList.add('card')
+                col.appendChild(card)
+                //create a img element  
+                let img = document.createElement('img');
+                img.src = person.avatar_url
+                card.appendChild(img)
+                //add name
+                let name=document.createElement('h1');
+                name.innerHTML = person.login;
+                card.appendChild(name)
+            });
+        })
+    </script>
+</body>
+</html>
